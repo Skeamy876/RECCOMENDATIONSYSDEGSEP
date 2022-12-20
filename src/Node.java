@@ -31,7 +31,6 @@ public class Node {
             connections.put(edge.getStart(), new ArrayList<>());
         }
         connections.get(edge.getStart()).add(edge);
-        //edge.writeToFile();
     }
     public List<Connection> getConnectionsPerNode(Node id){
         return connections.getOrDefault(id, Collections.emptyList());
@@ -39,6 +38,8 @@ public class Node {
     public Map<Node, List<Connection>> getConnections() {
         return connections;
     }
+
+
 
 //create equals and hashcode methods
     @Override
@@ -52,6 +53,23 @@ public class Node {
     @Override
     public int hashCode() {
         return Objects.hash(person);
+    }
+
+    public void printAdjacenyList(){
+        StringBuilder message= new StringBuilder();
+        if (this.connections.size()==0){
+            System.out.println(this.person +"--_>");
+        }
+       //loop through connections
+        for (Map.Entry<Node, List<Connection>> entry : this.connections.entrySet()) {
+            for (Connection connection : entry.getValue()) {
+                if (connection.getStart().equals(this)){
+                    message.append(connection.getStart().getPerson()).append("--->").append(connection.getEnd().getPerson()).append(" ");
+                }
+            }
+            message.append("");
+            System.out.println(message);
+        }
     }
 
 

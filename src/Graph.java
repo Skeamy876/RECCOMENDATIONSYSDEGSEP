@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Graph {
-  //  @Serial
-    //private static final long serialVersionUID = 1L;
-
     private Map <People, Node> recordsmap;
 
-    public Graph(){
+    public Graph(int size){
         this.recordsmap= new HashMap<>();
     }
 
@@ -21,13 +18,9 @@ public class Graph {
     }
 
     public void addEdge(Node source, Node dest){
-
         source.addConnection(dest);
         dest.addConnection(source);
     }
-
-
-
     public Map<People, Node> getRecords() {
         return recordsmap;
     }
@@ -38,7 +31,10 @@ public class Graph {
 
     public void printGraph() {
         for (Map.Entry<People, Node> entry : recordsmap.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue().getConnections());
+            //get the nodes
+            Node node = entry.getValue();
+            node.printAdjacenyList();
         }
     }
+
 }
