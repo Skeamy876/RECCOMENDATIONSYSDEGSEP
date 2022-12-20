@@ -1,5 +1,6 @@
+package Main;
+
 import java.io.*;
-import java.lang.annotation.Target;
 import java.util.*;
 
 public class Main {
@@ -35,7 +36,7 @@ public class Main {
         peopleNet.printGraph();
 
         //getnode count
-        System.out.println("Node count: " + peopleNet.getRecords().size());
+        System.out.println("Main.Node count: " + peopleNet.getRecords().size());
 
         try {
 
@@ -124,7 +125,7 @@ public class Main {
 
             Node currentnode= queue.poll();
             assert currentnode != null;
-            System.out.println("Queue Node:"+currentnode.getPerson().getFirstName());
+            System.out.println("Queue Main.Node:"+currentnode.getPerson().getFirstName());
             nodelinks=currentnode.getConnectionsPerNode(entry.getValue());
 
 
@@ -228,5 +229,6 @@ public class Main {
                 return entry.getValue();
             }
         }
+        return null;
     }
 }

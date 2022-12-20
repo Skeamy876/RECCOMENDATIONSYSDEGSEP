@@ -1,4 +1,4 @@
-import java.io.*;
+package Main;
 
 public class Connection {
    // @Serial

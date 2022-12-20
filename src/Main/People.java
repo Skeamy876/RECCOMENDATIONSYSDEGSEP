@@ -1,5 +1,5 @@
-import java.io.Serial;
-import java.io.Serializable;
+package Main;
+
 import java.util.Objects;
 
 public class People {

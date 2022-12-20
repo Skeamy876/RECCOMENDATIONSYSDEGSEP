@@ -1,3 +1,4 @@
+package Main;
 
 public class Activities {
     private final String Name;
@@ -10,7 +11,7 @@ public class Activities {
 
     @Override
     public String toString() {
-        return "Activities{" +
+        return "Main.Activities{" +
                 "Name='" + Name + '\'' +
                 ", Activity='" + Activity + '\'' +
                 '}';
