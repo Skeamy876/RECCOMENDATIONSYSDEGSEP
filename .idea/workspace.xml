@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71a0b161-7720-4f0e-91f8-6a5ea1203b6b" name="Changes" comment="find distance method update">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Test/Main/ConnectionTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Test/Main/GraphTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/RECOMMENDATIONSYS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RECOMMENDATIONSYS.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/SamplefileActivities2022Oct31text.csv" beforeDir="false" afterPath="$PROJECT_DIR$/res/SamplefileActivities2022Oct31text.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/SamplefilePersons2022Oct31text.csv" beforeDir="false" afterPath="$PROJECT_DIR$/res/SamplefilePersons2022Oct31text.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Activities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Activities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/People.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/thread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/thread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Main/ConnectionTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Main/GraphTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Main/GraphTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Skeamy876 &lt;awinstonmclennon@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -92,7 +87,7 @@
       <recent name="Main" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.GraphTest">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="C:\Program Files\Java\jdk-19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -110,6 +105,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ConnectionTest.getStart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RECOMMENDATIONSYS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="Main.ConnectionTest" />
+      <option name="METHOD_NAME" value="getStart" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GraphTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RECOMMENDATIONSYS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="Main.GraphTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GraphTest" />
+        <item itemvalue="JUnit.ConnectionTest.getStart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -131,7 +163,7 @@
       <workItem from="1671505140693" duration="2438000" />
       <workItem from="1671510371468" duration="10242000" />
       <workItem from="1671547439163" duration="2764000" />
-      <workItem from="1671551393874" duration="1010000" />
+      <workItem from="1671551393874" duration="1869000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1671506710891</created>
@@ -154,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671550216088</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="find distance method update">
+      <created>1671552564954</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1671552564954</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
