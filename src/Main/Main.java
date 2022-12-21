@@ -39,7 +39,6 @@ public class Main {
         System.out.println("Main.Node count: " + peopleNet.getRecords().size());
 
         try {
-
             System.out.println("WELCOME TO RECOMMENDATION SYSTEM");
             long endTime = System.nanoTime();
             Scanner read = new Scanner(System.in);
@@ -52,6 +51,10 @@ public class Main {
             System.out.println("Enter Second name:");
             int target = getPersonid(read.nextLine(), peopleNet);
             System.out.println(target);
+            //read.close();
+            double result= averageDegreeOfSeperation(source,target,peopleNet);
+
+            System.out.println("Degree of Seperation is:"+ result);
 
 
             System.out.println("Elapsed tme: " + (endTime - startTime));
@@ -109,34 +112,63 @@ public class Main {
 
     }
 
-    public static void findDistance(String source, String Target, Graph net) {
-        int childCount = 0;
-        if (Objects.equals(source, Target)) {
-            System.exit(0);
-        }
-        ArrayList<Node> checked = new ArrayList<>();
-        Queue<Node> queue = new LinkedList<>();
-        List<Connection> nodelinks= new LinkedList<>();
-        checked.add(getMatchingname(source, net));
-        queue.add(getMatchingname(source, net));
-
-        for (Map.Entry<People, Node> entry : net.getRecords().entrySet()) {
-            String dest = entry.getValue().getPerson().getFirstName();
-
-            Node currentnode= queue.poll();
-            assert currentnode != null;
-            System.out.println("Queue Main.Node:"+currentnode.getPerson().getFirstName());
-            nodelinks=currentnode.getConnectionsPerNode(entry.getValue());
-
-
-
-        }
-
-
-
-
+    public static double averageDegreeOfSeperation(int source, int Target, Graph net){
+        List<Node> path= findDistance(source,Target,net);
+        int numberConnections= Objects.requireNonNull(path).size()-1;
+        int numberNodes= path.size();
+        return (double) numberConnections/numberNodes;
     }
 
+    public static List<Node> findDistance(int source, int Target, Graph net) {
+        Map<Node, Node> prev = new HashMap<>();
+        Queue<Node> queue = new LinkedList<>();
+        Set<Node> visited = new HashSet<>();
+        List<Connection> nodelinks=new LinkedList<>();
+        List<Node> closeContacts=new LinkedList<>();
+        prev.put(getMatchingname(source, net), null);
+        queue.add(getMatchingname(source, net));
+        visited.add(getMatchingname(source, net));
+
+        while (!queue.isEmpty()) {
+            Node currentnode= queue.poll();
+            assert currentnode != null;
+            if (Objects.equals(currentnode, getMatchingname(Target, net))) {
+                return constuctPath(prev, currentnode);
+            }
+            for (Map.Entry<People,Node> entry: net.getRecords().entrySet()){
+                nodelinks=currentnode.getConnectionsPerNode(entry.getValue());
+            }
+            closeContacts=getCloseContacts(nodelinks, String.valueOf(Target),net);
+
+            for (Node trav: closeContacts) {
+                if (!queue.contains(trav) && !visited.contains(trav)) {
+                    queue.add(trav);
+                    visited.add(trav);
+                    prev.put(trav, currentnode);
+                }
+
+            }
+        }
+        return null;
+    }
+
+    private static List<Node> constuctPath(Map<Node,Node> prev, Node currentnode) {
+        List<Node> path = new LinkedList<>();
+        path.add(currentnode);
+        while (prev.get(currentnode) != null) {
+            currentnode = prev.get(currentnode);
+            path.add(currentnode);
+        }
+        Collections.reverse(path);
+        try{
+            return path;
+        }catch (NullPointerException e){
+            System.out.println("Path is empty");
+
+        }
+        return null;
+
+    }
     // free up memory method using runtime maxmemory
     public static void increaseMemory() {
         Runtime runtime = Runtime.getRuntime();
@@ -203,9 +235,9 @@ public class Main {
         return 0;
     }
 
-    public static Node getMatchingname (String name, Graph net){
+    public static Node getMatchingname (int name, Graph net){
         for (Map.Entry<People, Node> entry : net.getRecords().entrySet()) {
-            if (entry.getKey().getFirstName().equals(name)) {
+            if (entry.getKey().getId() == name) {
                 return entry.getValue();
             }
         }
@@ -217,9 +249,6 @@ public class Main {
         //get and store all close contacts
         for (Connection trav: nodelinks){
             closeContacts.add(trav.getEnd());
-            if (closeContacts.contains(getNodeBasedonname(Target,net))){
-                break;
-            }
         }
         return closeContacts;
     }
