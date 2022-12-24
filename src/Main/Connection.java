@@ -26,6 +26,4 @@ public class Connection {
     public void setEnd(Node end) {
         this.end = end;
     }
-
-
 }

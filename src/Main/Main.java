@@ -51,12 +51,10 @@ public class Main {
             System.out.println("Enter Second name:");
             int target = getPersonid(read.nextLine(), peopleNet);
             System.out.println(target);
-            //read.close();
-            double result= averageDegreeOfSeperation(source,target,peopleNet);
+            read.close();
 
-            System.out.println("Degree of Seperation is:"+ result);
-
-
+            double result = averageDegreeOfSeperation(source, target, peopleNet);
+            System.out.println("Degree of Seperation is:" + Math.round(result));
             System.out.println("Elapsed tme: " + (endTime - startTime));
         } catch (OutOfMemoryError e) {
             increaseMemory();
@@ -65,7 +63,7 @@ public class Main {
     }
 
     public static void loadData() {
-        String line = "";
+        String line;
         try (BufferedReader file = new BufferedReader(new FileReader("res/SamplefilePersons2022Oct31text.csv"))) {
             int id = 0;
             while ((line = file.readLine()) != null) {
@@ -100,8 +98,6 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println(records);
-        //System.out.println(Activitylist);
         System.out.println("Data Loaded");
     }
 
@@ -111,48 +107,45 @@ public class Main {
                 || first.getSchool().equals(second.getSchool());
 
     }
-
-    public static double averageDegreeOfSeperation(int source, int Target, Graph net){
-        List<Node> path= findDistance(source,Target,net);
-        int numberConnections= Objects.requireNonNull(path).size()-1;
-        int numberNodes= path.size();
-        return (double) numberConnections/numberNodes;
+    //calculate the average degree of seperation for the source and target
+    public static double averageDegreeOfSeperation(int source, int Target, Graph net) {
+        List<Node> path = findDistance(source, Target, net);
+        int numberConnections = Objects.requireNonNull(path).size() - 1;
+        int numberNodes = path.size();
+        return (double) numberConnections / numberNodes;
     }
-
+    //breadth first search to find the shortest distance between the source and target nodes
     public static List<Node> findDistance(int source, int Target, Graph net) {
         Map<Node, Node> prev = new HashMap<>();
         Queue<Node> queue = new LinkedList<>();
         Set<Node> visited = new HashSet<>();
-        List<Connection> nodelinks=new LinkedList<>();
-        List<Node> closeContacts=new LinkedList<>();
+        List<Node> closeContacts = new LinkedList<>();
         prev.put(getMatchingname(source, net), null);
         queue.add(getMatchingname(source, net));
         visited.add(getMatchingname(source, net));
 
         while (!queue.isEmpty()) {
-            Node currentnode= queue.poll();
+            Node currentnode = queue.poll();
             assert currentnode != null;
             if (Objects.equals(currentnode, getMatchingname(Target, net))) {
                 return constuctPath(prev, currentnode);
             }
-            for (Map.Entry<People,Node> entry: net.getRecords().entrySet()){
-                nodelinks=currentnode.getConnectionsPerNode(entry.getValue());
+            //iterate through connects for the currentnode
+            for (Connection connection : currentnode.getConnectionsPerNode(currentnode)) {
+                closeContacts.add(connection.getEnd());
             }
-            closeContacts=getCloseContacts(nodelinks, String.valueOf(Target),net);
-
-            for (Node trav: closeContacts) {
+            for (Node trav : closeContacts) {
                 if (!queue.contains(trav) && !visited.contains(trav)) {
                     queue.add(trav);
                     visited.add(trav);
                     prev.put(trav, currentnode);
                 }
-
             }
         }
         return null;
     }
-
-    private static List<Node> constuctPath(Map<Node,Node> prev, Node currentnode) {
+    //constructs path between the source and target
+    private static List<Node> constuctPath(Map<Node, Node> prev, Node currentnode) {
         List<Node> path = new LinkedList<>();
         path.add(currentnode);
         while (prev.get(currentnode) != null) {
@@ -160,9 +153,9 @@ public class Main {
             path.add(currentnode);
         }
         Collections.reverse(path);
-        try{
+        try {
             return path;
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Path is empty");
 
         }
@@ -190,34 +183,38 @@ public class Main {
         System.out.println("max memory: " + maxMemory / mb);
         System.out.println("total free memory: " + (freeMemory + (maxMemory - allocatedMemory)) / mb);
     }
-    public static int getPersonid (String namee, Graph net){
-        //check if first letter of name is in upper case
-        String name = "";
-        if (!Character.isUpperCase(namee.charAt(0))) {
-            name = namee.substring(0, 1).toUpperCase().concat(namee.substring(1));
-        } else {
-            name = namee;
-        }
-
+    //return the id of the name entered
+    public static int getPersonid(String namee, Graph net) {
+        //get first name and last name after space
+        String [] nameparts= namee.split(" ");
+        System.out.println(nameparts[1]);
+        System.out.println(nameparts[0]);
+        String firstName=nameparts[0];
+        String lastName=nameparts[1];
+        //store multiple occurences of the same name
         ArrayList<People> Occurences = new ArrayList<>();
-        //search for name in graph and return id
+
+        //search for name in graph and return id and add to occurencess
         for (Map.Entry<People, Node> entry : net.getRecords().entrySet()) {
             People key = entry.getKey();
             Node value = entry.getValue();
-            if (key.getFirstName().equals(name)) {
+            if (key.getFirstName().equalsIgnoreCase(firstName) && key.getLastName().equalsIgnoreCase(lastName)) {
                 Occurences.add(value.getPerson());
             }
         }
+        //return emptylist if zero occurences
         if (Occurences.size() == 1) {
             return Occurences.get(0).getId();
         } else if (Occurences.size() > 1) {
+            System.out.println("which Person?");
             for (People i : Occurences) {
-                System.out.println("which Person?");
                 System.out.println(i.getId() + " " + i.getFirstName() + " " + i.getLastName());
             }
             int tries = 3;
             try {
-                for (int i = 0; i < tries; i++) {
+                int i = 0;
+                //3 changes to select id number of intended person
+                while (i<tries) {
                     Scanner read = new Scanner(System.in);
                     System.out.println("Enter ID number of the intended person");
                     int choice = read.nextInt();
@@ -226,6 +223,7 @@ public class Main {
                             return j.getId();
                         }
                     }
+                    i++;
                 }
             } catch (Exception e) {
                 System.out.println("Invalid input");
@@ -234,8 +232,8 @@ public class Main {
         }
         return 0;
     }
-
-    public static Node getMatchingname (int name, Graph net){
+    //returns the matching node object for the name entered
+    public static Node getMatchingname(int name, Graph net) {
         for (Map.Entry<People, Node> entry : net.getRecords().entrySet()) {
             if (entry.getKey().getId() == name) {
                 return entry.getValue();
@@ -244,20 +242,4 @@ public class Main {
         return null;
     }
 
-    public static List<Node> getCloseContacts(List<Connection> nodelinks, String Target, Graph net){
-        List <Node> closeContacts = new LinkedList<>();
-        //get and store all close contacts
-        for (Connection trav: nodelinks){
-            closeContacts.add(trav.getEnd());
-        }
-        return closeContacts;
-    }
-    public static Node getNodeBasedonname(String name, Graph net){
-        for (Map.Entry<People,Node> entry: net.getRecords().entrySet()){
-            if (entry.getKey().getFirstName().equals(name)){
-                return entry.getValue();
-            }
-        }
-        return null;
-    }
 }
