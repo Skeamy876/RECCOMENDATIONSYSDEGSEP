@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main {
     static ArrayList<People> records = new ArrayList<>();
-    static ArrayList<Activities> Activitylist = new ArrayList<>();
+    static ArrayList<Activities>  activities= new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         long startTime = System.nanoTime();
@@ -63,19 +63,37 @@ public class Main {
     }
 
     public static void loadData() {
-        String line;
-        try (BufferedReader file = new BufferedReader(new FileReader("res/SamplefilePersons2022Oct31text.csv"))) {
+        String lineActivity;
+        String linePeople;
+        try (BufferedReader fileActivity = new BufferedReader(new FileReader("res/SamplefileActivities2022Oct31text.csv"))) {
+            int idc = 0;
+            String lastNameActivity = "";
+            String firstNameActivity = "";
+            String activityPerperson = "";
+            while ((lineActivity = fileActivity.readLine()) != null) {
+                String[] valuesActivity = lineActivity.split(",");
+                firstNameActivity = valuesActivity[0];
+                lastNameActivity = valuesActivity[1];
+                activityPerperson = valuesActivity[2];
+                idc++;
+                activities.add(new Activities(firstNameActivity, lastNameActivity, activityPerperson));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedReader filePeople = new BufferedReader(new FileReader("res/SamplefilePersons2022Oct31text.csv"))){
             int id = 0;
-            while ((line = file.readLine()) != null) {
-                String[] values = line.split(",");
-                String firstName = values[0];
-                String lastName = values[1];
-                String phoneNum = values[2];
-                String email = values[3];
-                String community = values[4];
-                String school = values[5];
-                String employer = values[6];
-                String privacy = values[7];
+            while (( linePeople = filePeople.readLine()) != null) {
+                String[] valuesPeople = linePeople.split(",");
+                String firstName = valuesPeople[0];
+                String lastName = valuesPeople[1];
+                String phoneNum = valuesPeople[2];
+                String email = valuesPeople[3];
+                String community = valuesPeople[4];
+                String school = valuesPeople[5];
+                String employer = valuesPeople[6];
+                String privacy = valuesPeople[7];
                 char choice = privacy.charAt(0);
                 long phone = Long.parseLong(phoneNum);
                 id++;
@@ -85,20 +103,22 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        //Load activities list
-        try (BufferedReader file = new BufferedReader(new FileReader("res/SamplefileActivities2022Oct31text.csv"))) {
-            while ((line = file.readLine()) != null) {
-                String[] values = line.split(",");
-                String firstName = values[0];
-                String lastName = values[1];
-                String activity = values[2];
-                String name = firstName.concat(lastName);
-                Activitylist.add(new Activities(name, activity));
+        for (Activities activity: activities){
+            String firstname= activity.getFirstName();
+            String lastName= activity.getLastName();
+            for (People person: records){
+                if (person.getFirstName().equals(firstname) || person.getLastName().equals(lastName)){
+                    person.setActivities(activity);
+                    //System.out.println("activity: "+ activity.toString());
+                    System.out.println("person: "+ person.toString());
+                    break;
+                }else {
+                    //set no activities to person
+                    System.out.println("no activites for : "+ person.getLastName() + person.getLastName());
+                }
+
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-        System.out.println("Data Loaded");
     }
 
     //method to match criteria for object pairs
@@ -107,7 +127,7 @@ public class Main {
                 || first.getSchool().equals(second.getSchool());
 
     }
-    //calculate the average degree of seperation for the source and target
+    //calculate the average degree of separation for the source and target
     public static double averageDegreeOfSeperation(int source, int Target, Graph net) {
         List<Node> path = findDistance(source, Target, net);
         int numberConnections = Objects.requireNonNull(path).size() - 1;
@@ -130,7 +150,7 @@ public class Main {
             if (Objects.equals(currentnode, getMatchingname(Target, net))) {
                 return constuctPath(prev, currentnode);
             }
-            //iterate through connects for the currentnode
+            //iterate through connects for the current node
             for (Connection connection : currentnode.getConnectionsPerNode(currentnode)) {
                 closeContacts.add(connection.getEnd());
             }
@@ -139,6 +159,18 @@ public class Main {
                     queue.add(trav);
                     visited.add(trav);
                     prev.put(trav, currentnode);
+                }
+                if (!trav.getPerson().requestPrivacy()){
+                   if (currentnode.getPerson().hasActivities()){
+                       if (trav.getPerson().getActivities().equals(currentnode.getPerson().getActivities())){
+                           System.out.println("No recommendations to send, target already has them");
+                       }else {
+                           System.out.println("recommendations sent to "+trav.getPerson().getFirstName()+" "+trav.getPerson().getLastName()+ "Recommendations:"+ currentnode.getPerson().getActivities());
+                       }
+
+
+                    }
+
                 }
             }
         }

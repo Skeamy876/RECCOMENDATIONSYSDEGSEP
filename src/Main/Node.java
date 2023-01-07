@@ -67,7 +67,6 @@ public class Node {
                     message.append(connection.getStart().getPerson()).append("--->").append(connection.getEnd().getPerson()).append(" ");
                 }
             }
-            message.append("");
             System.out.println(message);
         }
     }

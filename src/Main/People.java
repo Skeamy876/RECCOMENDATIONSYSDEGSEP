@@ -1,10 +1,7 @@
 package Main;
-
+import java.util.ArrayList;
 import java.util.Objects;
-
 public class People {
-    //@Serial
-  //  private static final long serialVersionUID = 1L;
     private int id;
     private String firstName;
     private String lastName;
@@ -14,8 +11,9 @@ public class People {
     private String school;
     private String employer;
     private char privacy;
+    private final ArrayList<Activities> activities;
 
-    public People(int id, String firstName, String lastName, long phoneNum, String email, String community, String school, String employer, char privacy) {
+    public People(int id, String firstName, String lastName, long phoneNum, String email, String community, String school, String employer, char privacy){//, Activities activities) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,16 +23,7 @@ public class People {
         this.school = school;
         this.employer = employer;
         this.privacy = privacy;
-    }
-
-    public People() {
-    }
-
-    public String toString() {
-        return "{" +
-                "ID='" + id + '\'' +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' + '}';
+        this.activities= new ArrayList<Activities>();
     }
 
     public int getId() {
@@ -122,4 +111,38 @@ public class People {
     public int hashCode() {
         return Objects.hash(firstName, id);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("FirstName: ").append(firstName).append(", lastName: ").append(lastName).append("\n");
+        sb.append("Activities: ");
+        for (Activities activity : activities) {
+            sb.append(activity.getActivity()).append(",");
+        }
+        return sb.toString();
+    }
+    public boolean requestPrivacy(){
+        return getPrivacy() == 'N';
+    }
+    //method to check if activities contains elements
+    public boolean hasActivities(){
+        return !activities.isEmpty();
+    }
+
+    public void setActivities(Activities activity) {
+        activities.add(activity);
+    }
+    public ArrayList <Activities> getActivities() {
+        return activities;
+    }
+
+    //public ArrayList <String> getActivitieslist() {
+       // ArrayList <String> activitieslist= new ArrayList<>();
+
+
+
+       // return activitieslist;
+    //}
+
 }
