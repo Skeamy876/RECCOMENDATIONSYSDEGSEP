@@ -4,7 +4,6 @@ public class Activities {
     private  String lastName;
     private String activity;
 
-
     public Activities(String firstName, String lastName,String activity) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,8 +18,6 @@ public class Activities {
         return lastName;
     }
 
-
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -29,7 +26,9 @@ public class Activities {
         this.lastName = lastName;
     }
 
-
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
 
     @Override
     public String toString() {
@@ -42,9 +41,6 @@ public class Activities {
         return activity;
     }
 
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
 }
 
 

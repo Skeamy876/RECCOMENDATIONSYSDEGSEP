@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71a0b161-7720-4f0e-91f8-6a5ea1203b6b" name="Changes" comment="path bug fix&#10;average deg sep finished &#10;name bug fixed">
+    <list default="true" id="71a0b161-7720-4f0e-91f8-6a5ea1203b6b" name="Changes" comment="refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/Activities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Activities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/People.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/thread.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +180,10 @@
       <workItem from="1671849684745" duration="6120000" />
       <workItem from="1672965933566" duration="7522000" />
       <workItem from="1673056508172" duration="5090000" />
-      <workItem from="1673107034623" duration="8217000" />
+      <workItem from="1673107034623" duration="9028000" />
+      <workItem from="1673141082646" duration="14000" />
+      <workItem from="1673633598798" duration="8000" />
+      <workItem from="1674072318259" duration="1871000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1671506710891</created>
@@ -261,7 +265,8 @@
     <MESSAGE value="find distance method update" />
     <MESSAGE value="calculate degree of significance. Bug fix pending" />
     <MESSAGE value="path bug fix&#10;average deg sep finished &#10;name bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="path bug fix&#10;average deg sep finished &#10;name bug fixed" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

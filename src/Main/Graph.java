@@ -1,12 +1,11 @@
 package Main;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Graph {
     private Map <People, Node> recordsmap;
 
-    public Graph(int size){
+    public Graph(){
         this.recordsmap= new HashMap<>();
     }
 
@@ -17,9 +16,9 @@ public class Graph {
         return recordsmap.get(data);
     }
 
-    public void addEdge(Node source, Node dest){
-        source.addConnection(dest);
-        dest.addConnection(source);
+    public void addEdge(Node source, Node destination){
+        source.addConnection(destination);
+        destination.addConnection(source);
     }
     public Map<People, Node> getRecords() {
         return recordsmap;
